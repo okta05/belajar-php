@@ -10,30 +10,30 @@ if (isset($_POST["submit"])) {
     $jenis_kelamin = $_POST['jenis_kelamin'];
     $alamat = $_POST['alamat'];
 
-    // koneksi dengan mysql
-$con = mysqli_connect("localhost","root","","fakultas");
+ // koneksi dengan mysql
+    $con = mysqli_connect("localhost","root","","fakultas");
 
-// cek koneksi
-if (mysqli_connect_errno()) {
-    echo "gagal konek ke MySQL: " . mysqli_connect_error();
-    exit();
-} else {
-    echo "koneksi berhasil";
-}
+    // cek koneksi
+    if (mysqli_connect_errno()) {
+        echo "gagal konek ke MySQL: " . mysqli_connect_error();
+        exit();
+    } else {
+        echo "koneksi berhasil";
+    }
 
-//buat sql query untuk insert ke database
-//buat query dan jalankan
-$sql = "insert into mahasiswa (id_jurusan, nim, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat)
-        values ($id_jurusan,'$nim', '$nama', '$jenis_kelamin', '$tempat_lahir', '$tanggal_lahir', '$alamat')";
+    //buat sql query untuk insert ke database
+    //buat query dan jalankan
+    $sql = "insert into mahasiswa (id_jurusan, nim, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat)
+            values ($id_jurusan,'$nim', '$nama', '$jenis_kelamin', '$tempat_lahir', '$tanggal_lahir', '$alamat')";
 
-    //jalankan query
-if (mysqli_query($con, $sql)) {
-    echo "Data berhasil ditambah";
-} else {
-    echo "Ada error ". mysqli_error();
-}
+        //jalankan query
+    if (mysqli_query($con, $sql)) {
+        echo "Data berhasil ditambah";
+    } else {
+        echo "Ada error ". mysqli_error($con);
+    }
 
-mysqli_close($con);
+    mysqli_close($con);
 }
 
 ?>
@@ -41,14 +41,17 @@ mysqli_close($con);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <form action="" method="post">
+    <h1>Tambah Data Mahasiswa</h1>
+    <form action="insert.php" method="post">
         NIM: <input type="text" name="nim"><br>
         Nama: <input type="text" name="nama"><br>
         ID Jurusan: <input type="number" name="id_jurusan"><br>
@@ -59,4 +62,5 @@ mysqli_close($con);
         <button type="submit" name="submit">Tambah Data</button>
     </form>
 </body>
+
 </html>
